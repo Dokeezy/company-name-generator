@@ -6,37 +6,14 @@ new Vue({
       suffix: ['x', 'aw', 'oo', 'ee', 'up', 'ax', 'pro', 'app', 'biz', ''],
       names: [],
       generations: 300,
-      dialog: false,
-      lead: {
-        email: '',
-        firstname: '',
-        lastname: '',
-        telephone: '',
-        zipcode: ''
-      }
-
     },
     methods: {
       generateName: function() {
-        return this.prefix[this.randomNumber()] + this.rootWord.toLowerCase() + this.suffix[this.randomNumber()];
+        return this.prefix[this.randomNumber(this.prefix.length)] + this.rootWord.toLowerCase() + this.suffix[this.randomNumber(this.suffix.length)];
       },
 
-      randomNumber: function() {
-          return Math.floor(Math.random() * ((this.prefix.length - 1) - 0 + 1)) + 0;
-      },
-
-      nameArrayToString: function() {
-        return this.names.join(" ");
-      },
-
-      sendNames: function() {
-        emailjs.send("gmail","template_7UClUYZl",{
-          email: this.lead.email,
-          nameArray: this.nameArrayToString()
-        });
-        this.rootWord = '';
-        this.lead.email = '';
-        this.dialog = false;
+      randomNumber: function(arrayLength) {
+          return Math.floor(Math.random() * ((arrayLength - 1) + 1));
       },
 
       generateNameArray: function() {
@@ -47,7 +24,6 @@ new Vue({
               this.names.push(this.generateName());
             }
           }
-          this.dialog = true;
         }
 
       }
