@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NameGen</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
+    <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("user_C9xRFFihiwfzMwOoRCt7F");
+       })();
+    </script>
+</head>
+<body>
+<div id="namegen">
+  <v-app>
+    <v-container>
+      <v-layout>
+        <v-flex xs12>
+          <v-card>
+            <v-card-title>
+              <h4>Générateur de nom</h4>
+            </v-card-title>
+            <v-card-actions>
+
+              <v-text-field type="text" v-model.trim="rootWord" required label="Rentrer une racine (ex: 'coif' pour coiffeur)"></v-text-field>
+              <v-btn class="mb-4" @click="generateNameArray()">générer</v-btn>
+
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+
+
+    <v-dialog v-model="dialog" persistent>
+      <v-card>
+        <v-card-title class="headline">Plus de {{names.length}} noms trouvés !</v-card-title>
+        <v-card-text>
+          <v-text-field type="email" v-model="lead.email" required label="Adresse email"></v-text-field>
+          <v-text-field type="text" v-model.trim="lead.firstname" required label="Prénom"></v-text-field>
+          <v-text-field type="text" v-model.trim="lead.lastname" required label="Nom de famille"></v-text-field>
+          <v-text-field type="text" v-model.trim="lead.telephone" required label="Numéro de téléphone"></v-text-field>
+          <v-text-field type="text" v-model.trim="lead.zipcode" required label="Code Postal"></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="green--text darken-1" @click.native="sendNames()">Recevoir</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-app>
+</div>
+<script src="namegen.js"></script>
+</body>
+</html>
